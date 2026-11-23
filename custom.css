@@ -1,0 +1,151 @@
+/* ============================================================================
+ * user/custom.css — Antigravity 一键上下文压缩按钮扩展样式
+ * 配合 chuanban-antigravity-theme-patch 的 user/custom.js 使用
+ * ============================================================================ */
+
+/* 输入框底栏右侧「压缩」按钮 (.ag-compact-ctx-btn) */
+.ag-compact-ctx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 7px;
+  margin-right: 2px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ag-composer-ctrl-fg, #0A0A0A) !important;
+  font-size: 12px !important;
+  font-weight: var(--ag-ui-w-ctrl, 500) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  opacity: 0.88 !important;
+  transition: background-color 140ms ease, opacity 140ms ease, transform 80ms ease;
+}
+
+body:not(.dark):not(.theme-dark) .ag-compact-ctx-btn:hover {
+  background-color: rgba(31, 30, 29, 0.08) !important;
+  opacity: 1 !important;
+}
+
+:is(html[data-ag-theme-mode="dark"] body, body.dark, body.theme-dark) .ag-compact-ctx-btn {
+  color: var(--ag-composer-ctrl-fg, #EAEBF1) !important;
+}
+
+:is(html[data-ag-theme-mode="dark"] body, body.dark, body.theme-dark) .ag-compact-ctx-btn:hover {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  opacity: 1 !important;
+}
+
+.ag-compact-ctx-btn:active {
+  transform: translateY(0.5px);
+}
+
+/* 鼠标悬停小浮框 (#ag-compact-ctx-tooltip) */
+#ag-compact-ctx-tooltip {
+  position: fixed;
+  z-index: 2147483647;
+  pointer-events: none;
+  display: none;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px !important;
+  font-weight: 450 !important;
+  line-height: 1.35 !important;
+  white-space: nowrap;
+  user-select: none;
+  transform: translateX(-50%);
+  background-color: rgba(255, 253, 249, 0.98);
+  color: #262422;
+  border: 1px solid rgba(31, 30, 29, 0.14);
+  box-shadow: 0 4px 12px rgba(31, 30, 29, 0.10);
+}
+
+#ag-compact-ctx-tooltip[data-visible="1"] {
+  display: block;
+}
+
+:is(html[data-ag-theme-mode="dark"] body, body.dark, body.theme-dark) #ag-compact-ctx-tooltip {
+  background-color: rgba(24, 24, 28, 0.96);
+  color: #EAEBF1;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+/* 隐藏纯 /compact 触发的用户消息气泡 */
+[data-testid="user-input-step"][data-ag-compact-hidden="1"] {
+  display: none !important;
+}
+
+/* 压缩状态/结果浮窗提示 (#ag-compact-ctx-toast) */
+#ag-compact-ctx-toast {
+  position: fixed;
+  top: 48px;
+  left: 50%;
+  z-index: 2147483647;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  white-space: nowrap;
+  user-select: none;
+  opacity: 0;
+  transform: translate(-50%, -6px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  background-color: rgba(255, 253, 249, 0.98);
+  color: #262422;
+  border: 1px solid rgba(31, 30, 29, 0.14);
+  box-shadow: 0 6px 18px rgba(31, 30, 29, 0.12);
+}
+
+#ag-compact-ctx-toast[data-visible="1"] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#ag-compact-ctx-toast .ag-toast-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background-color: #6b7280;
+}
+
+#ag-compact-ctx-toast[data-state="loading"] .ag-toast-dot {
+  background-color: #3b82f6;
+  animation: agCompactPulse 1s ease-in-out infinite;
+}
+
+#ag-compact-ctx-toast[data-state="success"] .ag-toast-dot {
+  background-color: #22c55e;
+}
+
+#ag-compact-ctx-toast[data-state="warn"] .ag-toast-dot {
+  background-color: #f59e0b;
+}
+
+#ag-compact-ctx-toast[data-state="error"] .ag-toast-dot {
+  background-color: #ef4444;
+}
+
+:is(html[data-ag-theme-mode="dark"] body, body.dark, body.theme-dark) #ag-compact-ctx-toast {
+  background-color: rgba(24, 24, 28, 0.96);
+  color: #EAEBF1;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes agCompactPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
